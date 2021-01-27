@@ -21,11 +21,11 @@ export class State {
     this.poses = [16 * 17 + 8, 0 * 17 + 8];  // [black, white]
   }
 
-  toString() {
+  toString():string {
     let s = "";
     for (let y = 0; y < 17; y++) {
       for (let x = 0; x < 17; x++) {
-        let c = this.field[y * 17 + x];
+        const c = this.field[y * 17 + x];
         if (y % 2 == 1 && x % 2 == 1) {
           // none
           s += " ";
@@ -46,7 +46,7 @@ export class State {
   }
 
   clone() : State {
-    let s: State = new State(0);
+    const s: State = new State(0);
     s.field.set(this.field);
     s.turn = this.turn;
     s.walls = [...this.walls];
@@ -63,7 +63,7 @@ export function decomposeAct(act: Act) : [number, number] {
 }
 
 export function getCandidateActs(state: State) : Act[] {
-  let acts: Act[] = [];
+  const acts: Act[] = [];
   const pos: number = state.poses[state.turn];
   // piece move
   for (let r = 0; r < 4; r++) {
@@ -103,7 +103,7 @@ export function getCandidateActs(state: State) : Act[] {
       for (let x = (y + 1) % 2; x < 17; x += 2) {
         const dir: number = (y % 2 == 0) ? 3 : 2;
         // the position must not be occupied
-        let places: number[] = [];
+        const places: number[] = [];
         let now = y * 17 + x;
         for (let i = 0; i < 3; i++) {
           places.push(now);
@@ -130,8 +130,8 @@ export function getCandidateActs(state: State) : Act[] {
 export function checkReachability(state: State) : boolean {
 loop_player:
   for (let p = 0; p <= 1; p += 1) {
-    let q: number[] = [state.poses[p]];
-    let visited = new Int8Array(17 * 17).fill(0);
+    const q: number[] = [state.poses[p]];
+    const visited = new Int8Array(17 * 17).fill(0);
 
     while (q.length > 0) {
       const now: number = q.pop();
@@ -156,7 +156,7 @@ loop_player:
   return true;
 }
 
-export function applyAct(state: State, act: Act) {
+export function applyAct(state: State, act: Act):void {
   const [y, x] = decomposeAct(act);
 
   if (x % 2 == 0 && y % 2 == 0) {

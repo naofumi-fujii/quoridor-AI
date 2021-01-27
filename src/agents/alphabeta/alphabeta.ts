@@ -1,4 +1,4 @@
-import {movedPos, State, Act, getCandidateActs, applyAct, isGameOver} from "../../quoridor_core";
+import {State, Act, getCandidateActs, applyAct, isGameOver} from "../../quoridor_core";
 import {shortestPath} from "../common";
 
 function shuffle(acts: Act[]) {
@@ -26,8 +26,8 @@ function search(state: State, depth: number, alpha: number, beta: number, maximi
 
   let value = maximize ? -1e9 : +1e9;
   let best_act: Act = null;
-  for (let act of acts) {
-    let nstate = state.clone();
+  for (const act of acts) {
+    const nstate = state.clone();
     applyAct(nstate, act);
 
     const [score, _] = search(nstate, depth - 1, alpha, beta, !maximize, cpuTurn, false);
