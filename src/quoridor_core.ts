@@ -21,7 +21,7 @@ export class State {
     this.poses = [16 * 17 + 8, 0 * 17 + 8];  // [black, white]
   }
 
-  toString() {
+  toString():string {
     let s = "";
     for (let y = 0; y < 17; y++) {
       for (let x = 0; x < 17; x++) {
@@ -156,7 +156,7 @@ loop_player:
   return true;
 }
 
-export function applyAct(state: State, act: Act) {
+export function applyAct(state: State, act: Act):void {
   const [y, x] = decomposeAct(act);
 
   if (x % 2 == 0 && y % 2 == 0) {
