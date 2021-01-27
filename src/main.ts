@@ -1,4 +1,4 @@
-import {movedPos, State, Act, decomposeAct, getCandidateActs, applyAct, isGameOver} from "./quoridor_core";
+import { State, Act, decomposeAct, getCandidateActs, applyAct, isGameOver} from "./quoridor_core";
 import {agent_list} from "./agents/agent_list";
 
 const boardDiv = document.querySelector(".qf_inner_gameboard") as HTMLDivElement;
@@ -100,14 +100,14 @@ function showShadowEvent(event: Event) {
   showShadowImpl(act);
 }
 
-function clearPieceShadow(event: Event) {
+function clearPieceShadow() {
   for (let p = 0; p <= 1; p++) {
     const shadowDiv = document.querySelector(".qf_" + turnString(p) + "piece2") as HTMLDivElement;
     shadowDiv.style.visibility = "hidden";
   }
 }
 
-function clearWallShadow(event: Event) {
+function clearWallShadow() {
   for (let p = 0; p <= 1; p++) {
     for (let dir = 0; dir <= 1; dir++) {
       const shadowDiv = document.querySelector(`.qf_wall[data-wall_shadow="${p}${dir}"]`) as HTMLDivElement;
