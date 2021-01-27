@@ -1,11 +1,11 @@
 import {movedPos, State} from "../quoridor_core";
 
 export function shortestPath(state: State, player: number) : number {
-  let q: [number, number][] = [[state.poses[player], 0]];
-  let visited = new Int8Array(17 * 17).fill(0);
+  const q: [number, number][] = [[state.poses[player], 0]];
+  const visited = new Int8Array(17 * 17).fill(0);
 
   while (q.length > 0) {
-    let [now, steps]= q.shift();
+    const [now, steps]= q.shift();
     if (visited[now]) continue;
     visited[now] = 1;
 

@@ -14,8 +14,8 @@ function isValid(act: Act) : boolean {
 function invokeAct(event: Event) {
   if (g_gameover) return;
   if (!g_humans_turn) return;
-  let s = (event.target as HTMLDivElement).dataset["pos"];
-  let act = parseInt(s);
+  const s = (event.target as HTMLDivElement).dataset["pos"];
+  const act = parseInt(s);
 
   if (!isValid(act)) return;
 
@@ -26,7 +26,7 @@ function invokeAct(event: Event) {
     g_humans_turn = false;
     g_delayed_shadow_act = null;
 
-    let d = document.createElement("div");
+    const d = document.createElement("div");
     d.style.width = "440px";
     d.style.height = "40px";
     d.style.top = "-50px";
@@ -90,7 +90,7 @@ function showShadowImpl(act: Act) {
 function showShadowEvent(event: Event) {
   if (g_gameover) return;
 
-  let act = parseInt((event.target as HTMLDivElement).dataset["pos"]);
+  const act = parseInt((event.target as HTMLDivElement).dataset["pos"]);
 
   if (!g_humans_turn) {
     g_delayed_shadow_act = act;
@@ -117,7 +117,7 @@ function clearWallShadow(event: Event) {
 }
 
 function showWinningText(winning_player: number) {
-  let d = document.createElement("div");
+  const d = document.createElement("div");
   d.style.width = "440px";
   d.style.height = "40px";
   if (winning_player == 0) {
@@ -146,7 +146,7 @@ function topPx(idx: number) : number {
 }
 
 function toggleAgent(event: Event) {
-  let checkbox = event.target as HTMLInputElement;
+  const checkbox = event.target as HTMLInputElement;
   if (checkbox.checked) {
     g_agent_name = checkbox.value;
   }
@@ -155,11 +155,11 @@ function toggleAgent(event: Event) {
 
 function initializeAgentButtons() {
   const buttonsDiv = document.querySelector(".qf_controlpanel") as HTMLDivElement;
-  for(let [i, agent_name] of Object.keys(agent_list).entries()) {
-    let l = document.createElement("label");
+  for(const [i, agent_name] of Object.keys(agent_list).entries()) {
+    const l = document.createElement("label");
     l.classList.add("qf_toggle_button")
 
-    let b = document.createElement("div");
+    const b = document.createElement("div");
     b.innerText = agent_name;
     b.style.width = 100 + "px";
     b.style.height = 25 + "px";
@@ -168,7 +168,7 @@ function initializeAgentButtons() {
     b.classList.add("qf_control_button");
     b.classList.add("qf_button_ai");
 
-    let r = document.createElement("input");
+    const r = document.createElement("input");
     r.type = "radio";
     r.name = "agent";
     r.value = agent_name;
@@ -187,7 +187,7 @@ function prepareGameState() {
   // cells
   for (let y=0; y<17; y+=2) {
     for (let x=0; x<17; x+=2) {
-      let d = document.createElement("div");
+      const d = document.createElement("div");
       d.style.width = 40 + "px";
       d.style.height = 40 + "px";
       d.style.top = topPx(y) + "px";
@@ -204,7 +204,7 @@ function prepareGameState() {
 
   // shadow of piece
   for (let p = 0; p <= 1; p++) {
-    let d = document.createElement("div");
+    const d = document.createElement("div");
     d.style.width = 36 + "px";
     d.style.height = 36 + "px";
     d.style.top = "0px";
@@ -218,7 +218,7 @@ function prepareGameState() {
   // spaces
   for (let y = 0; y < 17; y++) {
     for (let x = (y + 1) % 2; x < 17; x += 2) {
-      let d = document.createElement("div");
+      const d = document.createElement("div");
       if (y % 2 == 0) {
         d.style.width = 10 + "px";
         d.style.height = 40 + "px";
@@ -241,7 +241,7 @@ function prepareGameState() {
   // shadow of walls
   for (let p = 0; p <= 1; p++) {
     for (let dir = 0; dir < 2; dir++) {
-      let d = document.createElement("div");
+      const d = document.createElement("div");
       if (dir == 0) {
         d.style.width = 10 + "px";
         d.style.height = 90 + "px";
@@ -275,7 +275,7 @@ function resetGameState() {
   // set remaining walls
   for (let i = 0; i < g_state.walls[0]; i++) {
     for (let p = 0; p <= 1; p++) {
-      let d = document.createElement("div");
+      const d = document.createElement("div");
       d.style.width = 10 + "px";
       d.style.height = 40 + "px";
       d.style.top = ((p == 0) ? topPx(17) : -40) + "px";
@@ -292,9 +292,9 @@ function resetGameState() {
   }
 
   for (let p = 0; p <= 1; p++) {
-    let [y, x] = decomposeAct(g_state.poses[p]);
+    const [y, x] = decomposeAct(g_state.poses[p]);
 
-    let d = document.createElement("div");
+    const d = document.createElement("div");
     d.style.width = 36 + "px";
     d.style.height = 36 + "px";
     d.style.top = (topPx(y) + 2) + "px";
@@ -319,7 +319,7 @@ function updateBoard(act: Act) {
 
   if (x % 2 != y % 2) {
     // wall
-    let d = document.createElement("div");
+    const d = document.createElement("div");
 
     if (x % 2 == 0) {
       // horizontal
@@ -345,7 +345,7 @@ function updateBoard(act: Act) {
 
     // update the number of remaining walls
     const idx = g_state.walls[g_state.turn] - 1;
-    let remaining = document.querySelector(`.qf_remaining_${turnString(g_state.turn)}wall[data-idx="${idx}"]`) as HTMLDivElement;
+    const remaining = document.querySelector(`.qf_remaining_${turnString(g_state.turn)}wall[data-idx="${idx}"]`) as HTMLDivElement;
     remaining.style.opacity = "0";
 
     setTimeout(() => {
@@ -370,9 +370,9 @@ function updateBoard(act: Act) {
 
 let g_state: State = null;
 let g_agent_name = "CPU Lv.1";
-let g_humans_turn: boolean = true;
+let g_humans_turn = true;
 let g_delayed_shadow_act: Act = null;
-let g_gameover: boolean = false;
+let g_gameover = false;
 let g_candidate_acts: Act[] = [];
 
 initializeAgentButtons();

@@ -11,15 +11,15 @@ export function naiveAgent(state: State) : Act {
     return -shortestPath(s, player) + gamma * s.walls[player];
   }
 
-  let first = 0;
-  for (let act of acts) {
-    let state1 = state.clone();
+  const first = 0;
+  for (const act of acts) {
+    const state1 = state.clone();
     applyAct(state1, act);
     const acts1 = getCandidateActs(state1);
     let min = 1e10;
 
-    for (let act1 of acts1) {
-      let state2 = state1.clone();
+    for (const act1 of acts1) {
+      const state2 = state1.clone();
       applyAct(state2, act1);
       const score = calcScore(state2, state.turn) - calcScore(state2, 1 - state.turn);
       min = Math.min(min, score);
