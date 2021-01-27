@@ -1,4 +1,4 @@
-import {movedPos, State, Act, getCandidateActs, applyAct, isGameOver} from "../../quoridor_core";
+import { State, Act, getCandidateActs, applyAct } from "../../quoridor_core";
 import {shortestPath} from "../common";
 
 export function naiveAgent(state: State) : Act {
@@ -11,7 +11,6 @@ export function naiveAgent(state: State) : Act {
     return -shortestPath(s, player) + gamma * s.walls[player];
   }
 
-  const first = 0;
   for (const act of acts) {
     const state1 = state.clone();
     applyAct(state1, act);
