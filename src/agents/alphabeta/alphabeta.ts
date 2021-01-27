@@ -1,4 +1,4 @@
-import {movedPos, State, Act, getCandidateActs, applyAct, isGameOver} from "../../quoridor_core";
+import {State, Act, getCandidateActs, applyAct, isGameOver} from "../../quoridor_core";
 import {shortestPath} from "../common";
 
 function shuffle(acts: Act[]) {
