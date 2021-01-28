@@ -4,4 +4,4 @@
 
 ## 開発環境
 
-yarn run start
+`$ yarn run start`
